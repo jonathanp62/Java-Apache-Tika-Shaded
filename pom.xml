@@ -42,6 +42,7 @@
     A demonstration program of Apache TIKA
   </description>
   <properties>
+    <gson.version>2.10.1</gson.version>
     <logback.version>1.4.12</logback.version>
     <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss zzz</maven.build.timestamp.format>
     <maven.compiler.source>11</maven.compiler.source>
@@ -336,6 +337,11 @@
       <groupId>ch.qos.logback</groupId>
       <artifactId>logback-core</artifactId>
       <version>${logback.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.google.code.gson</groupId>
+      <artifactId>gson</artifactId>
+      <version>${gson.version}</version>
     </dependency>
     <dependency>
       <groupId>org.apache.tika</groupId>

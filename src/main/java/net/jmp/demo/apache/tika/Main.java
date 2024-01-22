@@ -30,12 +30,17 @@ package net.jmp.demo.apache.tika;
  * SOFTWARE.
  */
 
+import com.google.gson.Gson;
+
 import java.io.File;
 
 import java.io.FileInputStream;
+import java.io.IOException;
 
+import java.nio.file.Files;
 import java.nio.file.Paths;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.tika.Tika;
@@ -60,6 +65,8 @@ import org.slf4j.LoggerFactory;
 import org.slf4j.ext.XLogger;
 
 public final class Main {
+    private final static String FILE_NAMES = "config/file-names.json";
+
     private final XLogger logger = new XLogger(LoggerFactory.getLogger(this.getClass().getName()));
 
     private Main() {
@@ -69,18 +76,25 @@ public final class Main {
     private void run() {
         this.logger.entry();
 
-        final var listOfFiles = List.of(
-                new File("/Users/Maestro/Documents/Improving_Code_Quality_.pdf"),
-                new File("/Users/Maestro/Documents/Watkins Academy of Music Piano Competition.docx"),
-                new File("/Users/Maestro/Documents/Fidelity-CDs.xlsx"),
-                new File("/Users/Maestro/Documents/pillow-A-Vertical-Flipped.png"),
-                new File("/Users/Maestro/Pictures/Ace-Sketch.jpg")
-        );
+        FileNames fileNames = null;
 
-        this.defaultDetecting(listOfFiles);
-        this.facade(listOfFiles);
-        this.parsing(listOfFiles);
-        this.simple(listOfFiles);
+        try {
+            fileNames = new Gson().fromJson(Files.readString(Paths.get(FILE_NAMES)), FileNames.class);
+        } catch (final IOException ioe) {
+            this.logger.catching(ioe);
+        }
+
+        if (fileNames != null && !fileNames.getFileNames().isEmpty()) {
+            final List<File> files = new ArrayList<>();
+
+            for (final var fileName : fileNames.getFileNames())
+                files.add(new File(fileName));
+
+            this.defaultDetecting(files);
+            this.facade(files);
+            this.parsing(files);
+            this.simple(files);
+        }
 
         this.logger.exit();
     }
