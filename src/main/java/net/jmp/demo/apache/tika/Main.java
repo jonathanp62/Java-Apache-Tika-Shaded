@@ -72,6 +72,7 @@ public final class Main {
         final var listOfFiles = List.of(
                 new File("/Users/Maestro/Documents/Improving_Code_Quality_.pdf"),
                 new File("/Users/Maestro/Documents/Watkins Academy of Music Piano Competition.docx"),
+                new File("/Users/Maestro/Documents/Fidelity-CDs.xlsx"),
                 new File("/Users/Maestro/Documents/pillow-A-Vertical-Flipped.png"),
                 new File("/Users/Maestro/Pictures/Ace-Sketch.jpg")
         );
@@ -88,6 +89,7 @@ public final class Main {
         this.logger.entry(files);
 
         // For the Word document the content type is application/vnd.openxmlformats-officedocument.wordprocessingml.document
+        // For the Excel document the content type is application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
 
         try {
             final var tika = new TikaConfig();
@@ -144,6 +146,7 @@ public final class Main {
         this.logger.entry(files);
 
         // For the Word document the content type is application/x-tika-ooxml
+        // For the Excel document the content type is application/x-tika-ooxml
 
         try {
             for (final var file : files) {
@@ -176,6 +179,7 @@ public final class Main {
         this.logger.entry(files);
 
         // For the Word document the content type is application/vnd.openxmlformats-officedocument.wordprocessingml.document
+        // For the Excel document the content type is application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
 
         try {
             for (final var file : files) {

@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
+ (#)pom.xml	0.2.0	01/22/2024
  (#)pom.xml	0.1.0	01/22/2024
 
  @author   Jonathan Parker
- @version  0.1.0
+ @version  0.2.0
  @since    0.1.0
 
  MIT License
@@ -35,7 +36,7 @@
   <groupId>net.jmp.demo.apache.tika.demo</groupId>
   <artifactId>apache-tika-demo</artifactId>
   <packaging>jar</packaging>
-  <version>0.1.0</version>
+  <version>0.2.0</version>
   <name>Apache TIKA Demonstration</name>
   <description>
     A demonstration program of Apache TIKA
