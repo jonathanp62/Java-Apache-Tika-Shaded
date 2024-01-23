@@ -1,11 +1,12 @@
 package net.jmp.demo.apache.tika;
 
 /*
+ * (#)Main.java 0.3.0   01/23/2024
  * (#)Main.java 0.2.0   01/22/2024
  * (#)Main.java 0.1.0   01/22/2024
  *
  * @author    Jonathan Parker
- * @version   0.2.0
+ * @version   0.3.0
  * @since     0.1.0
  *
  * MIT License
@@ -34,8 +35,6 @@ package net.jmp.demo.apache.tika;
 import com.google.gson.Gson;
 
 import java.io.File;
-
-import java.io.FileInputStream;
 import java.io.IOException;
 
 import java.nio.file.Files;
@@ -44,23 +43,6 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
-import org.apache.tika.Tika;
-
-import org.apache.tika.config.TikaConfig;
-
-import org.apache.tika.io.TikaInputStream;
-
-import org.apache.tika.metadata.Metadata;
-
-import org.apache.tika.mime.MimeTypes;
-import org.apache.tika.mime.MimeTypeException;
-
-import org.apache.tika.parser.AutoDetectParser;
-import org.apache.tika.parser.ParseContext;
-import org.apache.tika.parser.Parser;
-
-import org.apache.tika.sax.BodyContentHandler;
 
 import org.slf4j.LoggerFactory;
 
@@ -86,10 +68,8 @@ public final class Main {
             for (final var fileName : fileNames.get().getList())
                 files.add(new File(fileName));
 
-            this.defaultDetecting(files);
-            this.facade(files);
-            this.parsing(files);
-            this.simple(files);
+            new Unshaded().run(files);
+            new Shaded().run(files);
         }
 
         this.logger.exit();
@@ -111,143 +91,6 @@ public final class Main {
         this.logger.exit(result);
 
         return result;
-    }
-
-    private void defaultDetecting(final List<File> files) {
-        this.logger.entry(files);
-
-        // For the Word document the content type is application/vnd.openxmlformats-officedocument.wordprocessingml.document
-        // For the Excel document the content type is application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
-
-        try {
-            final var tika = new TikaConfig();
-
-            for (final var file : files) {
-                final var metadata = new Metadata();
-                final var mediaType = tika
-                        .getDetector()
-                        .detect(TikaInputStream.get(Paths.get(file.toURI()), metadata), metadata);
-
-                if (mediaType != null) {
-                    final var mimeType = mediaType.toString();
-
-                    if (mimeType != null && !mimeType.isBlank() && this.logger.isInfoEnabled()) {
-                        this.logger.info("{}: {}: {}",
-                                file.getName(),
-                                mimeType,
-                                this.getExtensionByMimeType(mimeType));
-                    }
-                }
-            }
-        } catch (final Exception e) {
-            this.logger.catching(e);
-        }
-
-        this.logger.exit();
-    }
-
-    private void facade(final List<File> files) {
-        this.logger.entry(files);
-
-        try {
-            for (final var file : files) {
-                final var tika = new Tika(new TikaConfig());
-
-                try (final var stream = new FileInputStream(file)) {
-                    final var mimeType = tika.parseToString(stream);
-
-                    if (mimeType != null && !mimeType.isBlank() && this.logger.isInfoEnabled())
-                        this.logger.info("{}: {}: {}",
-                                file.getName(),
-                                mimeType,
-                                this.getExtensionByMimeType(mimeType)); // Nothing logged
-                }
-            }
-        } catch (final Exception e) {
-            this.logger.catching(e);
-        }
-
-        this.logger.exit();
-    }
-
-    private void parsing(final List<File> files) {
-        this.logger.entry(files);
-
-        // For the Word document the content type is application/x-tika-ooxml
-        // For the Excel document the content type is application/x-tika-ooxml
-
-        try {
-            for (final var file : files) {
-                try (final var stream = new FileInputStream(file)) {
-                    final Parser parser = new AutoDetectParser();
-
-                    final var handler = new BodyContentHandler();
-                    final var metadata = new Metadata();
-                    final var context = new ParseContext();
-
-                    parser.parse(stream, handler, metadata, context);
-
-                    final var mimeType = metadata.get("Content-Type");
-
-                    if (mimeType != null && !mimeType.isBlank() && this.logger.isInfoEnabled())
-                        this.logger.info("{}: {}: {}",
-                                file.getName(),
-                                mimeType,
-                                this.getExtensionByMimeType(mimeType));
-                }
-            }
-        } catch (final Exception e) {
-            this.logger.catching(e);
-        }
-
-        this.logger.exit();
-    }
-
-    private void simple(final List<File> files) {
-        this.logger.entry(files);
-
-        // For the Word document the content type is application/vnd.openxmlformats-officedocument.wordprocessingml.document
-        // For the Excel document the content type is application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
-
-        try {
-            for (final var file : files) {
-                final var tika = new Tika();
-                final var mimeType = tika.detect(file);
-
-                if (mimeType != null && !mimeType.isBlank() && this.logger.isInfoEnabled())
-                    this.logger.info("{}: {}: {}",
-                            file.getName(),
-                            mimeType,
-                            this.getExtensionByMimeType(mimeType));
-            }
-        } catch (final Exception e) {
-            this.logger.catching(e);
-        }
-
-        this.logger.exit();
-    }
-
-    private String getExtensionByMimeType(final String mimetypeString) {
-        this.logger.entry(mimetypeString);
-
-        String extension;
-
-        final var allTypes = MimeTypes.getDefaultMimeTypes();
-
-        try {
-            final var mimeType = allTypes.forName(mimetypeString);
-
-            if (mimeType != null)
-                extension = mimeType.getExtension();
-            else
-                extension = "";
-        } catch (final MimeTypeException mte) {
-            this.logger.catching(mte);
-
-            extension = "";
-        }
-
-        return extension;
     }
 
     public static void main(final String[] args) {

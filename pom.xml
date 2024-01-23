@@ -6,7 +6,7 @@
  (#)pom.xml	0.1.0	01/22/2024
 
  @author   Jonathan Parker
- @version  0.2.0
+ @version  0.3.0
  @since    0.1.0
 
  MIT License
@@ -45,6 +45,7 @@
     A demonstration program of Apache TIKA
   </description>
   <properties>
+    <commons.io.version>2.11.0</commons.io.version>
     <gson.version>2.10.1</gson.version>
     <logback.version>1.4.12</logback.version>
     <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss zzz</maven.build.timestamp.format>
@@ -345,6 +346,16 @@
       <groupId>com.google.code.gson</groupId>
       <artifactId>gson</artifactId>
       <version>${gson.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-io</groupId>
+      <artifactId>commons-io</artifactId>
+      <version>${commons.io.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>net.jmp.demo.apache.shaded.tika</groupId>
+      <artifactId>shaded-tika</artifactId>
+      <version>${tika.version}</version>
     </dependency>
     <dependency>
       <groupId>org.apache.tika</groupId>
