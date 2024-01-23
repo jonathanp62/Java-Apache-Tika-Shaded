@@ -42,6 +42,7 @@ import java.nio.file.Paths;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.tika.Tika;
 
@@ -65,7 +66,7 @@ import org.slf4j.LoggerFactory;
 import org.slf4j.ext.XLogger;
 
 public final class Main {
-    private final static String FILE_NAMES = "config/file-names.json";
+    private static final String FILE_NAMES = "config/file-names.json";
 
     private final XLogger logger = new XLogger(LoggerFactory.getLogger(this.getClass().getName()));
 
@@ -76,18 +77,12 @@ public final class Main {
     private void run() {
         this.logger.entry();
 
-        FileNames fileNames = null;
+        final var fileNames = this.getFileNames();
 
-        try {
-            fileNames = new Gson().fromJson(Files.readString(Paths.get(FILE_NAMES)), FileNames.class);
-        } catch (final IOException ioe) {
-            this.logger.catching(ioe);
-        }
-
-        if (fileNames != null && !fileNames.getFileNames().isEmpty()) {
+        if (fileNames.isPresent() && !fileNames.get().getList().isEmpty()) {
             final List<File> files = new ArrayList<>();
 
-            for (final var fileName : fileNames.getFileNames())
+            for (final var fileName : fileNames.get().getList())
                 files.add(new File(fileName));
 
             this.defaultDetecting(files);
@@ -97,6 +92,24 @@ public final class Main {
         }
 
         this.logger.exit();
+    }
+
+    private Optional<FileNames> getFileNames() {
+        this.logger.entry();
+
+        FileNames fileNames = null;
+
+        try {
+            fileNames = new Gson().fromJson(Files.readString(Paths.get(FILE_NAMES)), FileNames.class);
+        } catch (final IOException ioe) {
+            this.logger.catching(ioe);
+        }
+
+        final Optional<FileNames> result = Optional.ofNullable(fileNames);
+
+        this.logger.exit(result);
+
+        return result;
     }
 
     private void defaultDetecting(final List<File> files) {

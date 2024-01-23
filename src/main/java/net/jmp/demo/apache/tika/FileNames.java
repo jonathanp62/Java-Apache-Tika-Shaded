@@ -30,20 +30,23 @@ package net.jmp.demo.apache.tika;
  * SOFTWARE.
  */
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 class FileNames {
-    private List<String> fileNames;
+    @SerializedName("fileNames")
+    private List<String> list;
 
     FileNames() {
         super();
     }
 
-    List<String> getFileNames() {
-        return this.fileNames;
+    List<String> getList() {
+        return this.list;
     }
 
-    void setFileNames(final List<String> fileNames) {
-        this.fileNames = fileNames;
+    void setList(final List<String> list) {
+        this.list = list;
     }
 }
