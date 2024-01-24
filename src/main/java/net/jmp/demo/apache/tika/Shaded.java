@@ -60,6 +60,7 @@ import org.slf4j.ext.XLogger;
 
 final class Shaded {
     private final XLogger logger = new XLogger(LoggerFactory.getLogger(this.getClass().getName()));
+    private final boolean runWhatDoesNotWork = false;
 
     Shaded() {
         super();
@@ -69,8 +70,12 @@ final class Shaded {
         this.logger.entry(files);
 
         this.defaultDetecting(files);
-        this.facade(files);
-        this.parsing(files);
+
+        if (this.runWhatDoesNotWork) {
+            this.facade(files);
+            this.parsing(files);
+        }
+
         this.simple(files);
 
         this.logger.exit();
