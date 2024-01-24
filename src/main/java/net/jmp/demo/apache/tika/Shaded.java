@@ -1,10 +1,11 @@
 package net.jmp.demo.apache.tika;
 
 /*
+ * (#)Shaded.java   0.4.0   01/23/2024
  * (#)Shaded.java   0.3.0   01/23/2024
  *
  * @author    Jonathan Parker
- * @version   0.3.0
+ * @version   0.4.0
  * @since     0.3.0
  *
  * MIT License
