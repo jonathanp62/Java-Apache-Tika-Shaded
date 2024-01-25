@@ -1,11 +1,12 @@
 package net.jmp.demo.apache.tika;
 
 /*
+ * (#)Unshaded.java 0.5.0   01/25/2024
  * (#)Unshaded.java 0.4.0   01/24/2024
  * (#)Unshaded.java 0.3.0   01/23/2024
  *
  * @author    Jonathan Parker
- * @version   0.4.0
+ * @version   0.5.0
  * @since     0.3.0
  *
  * MIT License
@@ -33,6 +34,7 @@ package net.jmp.demo.apache.tika;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 
 import java.nio.file.Paths;
 
@@ -84,9 +86,6 @@ final class Unshaded {
 
     private void defaultDetecting(final List<File> files) {
         this.logger.entry(files);
-
-        // For the Word document the content type is application/vnd.openxmlformats-officedocument.wordprocessingml.document
-        // For the Excel document the content type is application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
 
         try {
             final var tika = new TikaConfig();
@@ -142,9 +141,6 @@ final class Unshaded {
     private void parsing(final List<File> files) {
         this.logger.entry(files);
 
-        // For the Word document the content type is application/x-tika-ooxml
-        // For the Excel document the content type is application/x-tika-ooxml
-
         try {
             for (final var file : files) {
                 try (final var stream = new FileInputStream(file)) {
@@ -175,13 +171,9 @@ final class Unshaded {
     private void simple(final List<File> files) {
         this.logger.entry(files);
 
-        // For the Word document the content type is application/vnd.openxmlformats-officedocument.wordprocessingml.document
-        // For the Excel document the content type is application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
-
         try {
             for (final var file : files) {
-                final var tika = new Tika();
-                final var mimeType = tika.detect(file);
+                final var mimeType = this.simpleDetect(file);
 
                 if (mimeType != null && !mimeType.isBlank() && this.logger.isInfoEnabled())
                     this.logger.info("{}: {}: {}",
@@ -196,7 +188,18 @@ final class Unshaded {
         this.logger.exit();
     }
 
-    private String getExtensionByMimeType(final String mimetypeString) {
+    String simpleDetect(final File file) throws IOException {
+        this.logger.entry(file);
+
+        final var tika = new Tika();
+        final var mimeType = tika.detect(file);
+
+        this.logger.exit(mimeType);
+
+        return mimeType;
+    }
+
+    String getExtensionByMimeType(final String mimetypeString) {
         this.logger.entry(mimetypeString);
 
         String extension;
