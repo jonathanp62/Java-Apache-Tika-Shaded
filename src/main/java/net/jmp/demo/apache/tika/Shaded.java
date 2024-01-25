@@ -88,23 +88,14 @@ final class Shaded {
         this.logger.entry(files);
 
         try {
-            final var tika = new TikaConfig();
-
             for (final var file : files) {
-                final var metadata = new Metadata();
-                final var mediaType = tika
-                        .getDetector()
-                        .detect(TikaInputStream.get(Paths.get(file.toURI()), metadata), metadata);
+                final var mimeType = this.defaultDetect(file);
 
-                if (mediaType != null) {
-                    final var mimeType = mediaType.toString();
-
-                    if (mimeType != null && !mimeType.isBlank() && this.logger.isInfoEnabled()) {
-                        this.logger.info("{}: {}: {}",
-                                file.getName(),
-                                mimeType,
-                                this.getExtensionByMimeType(mimeType));
-                    }
+                if (mimeType != null && !mimeType.isBlank() && this.logger.isInfoEnabled()) {
+                    this.logger.info("{}: {}: {}",
+                            file.getName(),
+                            mimeType,
+                            this.getExtensionByMimeType(mimeType));
                 }
             }
         } catch (final Exception e) {
@@ -112,6 +103,26 @@ final class Shaded {
         }
 
         this.logger.exit();
+    }
+
+    String defaultDetect(final File file) throws Exception {
+        this.logger.entry(file);
+
+        String mimeType = null;
+
+        final var tika = new org.apache.tika.config.TikaConfig();
+        final var metadata = new org.apache.tika.metadata.Metadata();
+
+        final var mediaType = tika
+                .getDetector()
+                .detect(TikaInputStream.get(Paths.get(file.toURI())), metadata);
+
+        if (mediaType != null)
+            mimeType = mediaType.toString();
+
+        this.logger.exit(mimeType);
+
+        return mimeType;
     }
 
     private void facade(final List<File> files) {

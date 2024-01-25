@@ -48,7 +48,14 @@ public class TestShaded {
         this.shaded = new Shaded();
     }
 
-    private void testMimeTypeOfFile(final String fileName, final String expectedMimeType) throws Throwable {
+    private void testMimeTypeOfFileDefault(final String fileName, final String expectedMimeType) throws Throwable {
+        final var file = new File(fileName);
+        final var result = this.shaded.defaultDetect(file);
+
+        assertEquals(expectedMimeType, result);
+    }
+
+    private void testMimeTypeOfFileSimple(final String fileName, final String expectedMimeType) throws Throwable {
         final var file = new File(fileName);
         final var result = this.shaded.simpleDetect(file);
 
@@ -56,8 +63,120 @@ public class TestShaded {
     }
 
     @Test
+    public void testDefaultPdf() throws Throwable {
+        this.testMimeTypeOfFileDefault(
+                "/Users/Maestro/Documents/Improving_Code_Quality_.pdf",
+                "application/pdf"
+        );
+    }
+
+    @Test
+    public void testDefaultPdfAsTmp() throws Throwable {
+        this.testMimeTypeOfFileDefault(
+                "/Users/Maestro/Documents/PDF-Document.tmp",
+                "application/pdf"
+        );
+    }
+
+    @Test
+    public void testDefaultWord() throws Throwable {
+        this.testMimeTypeOfFileDefault(
+                "/Users/Maestro/Documents/Watkins Academy of Music Piano Competition.docx",
+                "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+        );
+    }
+
+    @Test
+    public void testDefaultWordAsTmp() throws Throwable {
+        this.testMimeTypeOfFileDefault(
+                "/Users/Maestro/Documents/Word-Document.tmp",
+                "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+        );
+    }
+
+    @Test
+    public void testDefaultExcel() throws Throwable {
+        this.testMimeTypeOfFileDefault(
+                "/Users/Maestro/Documents/Fidelity-CDs.xlsx",
+                "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+        );
+    }
+
+    @Test
+    public void testDefaultExcelAsTmp() throws Throwable {
+        this.testMimeTypeOfFileDefault(
+                "/Users/Maestro/Documents/Excel-Document.tmp",
+                "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+        );
+    }
+
+    @Test
+    public void testDefaultPowerpoint() throws Throwable {
+        this.testMimeTypeOfFileDefault(
+                "/Users/Maestro/Documents/Epic-Presentation.pptx",
+                "application/vnd.openxmlformats-officedocument.presentationml.presentation"
+        );
+    }
+
+    @Test
+    public void testDefaultPowerpointAsTmp() throws Throwable {
+        this.testMimeTypeOfFileDefault(
+                "/Users/Maestro/Documents/Powerpoint-Document.tmp",
+                "application/vnd.openxmlformats-officedocument.presentationml.presentation"
+        );
+    }
+
+    @Test
+    public void testDefaultJpeg() throws Throwable {
+        this.testMimeTypeOfFileDefault(
+                "/Users/Maestro/Pictures/Ace-Sketch.jpg",
+                "image/jpeg"
+        );
+    }
+
+    @Test
+    public void testDefaultJpegAsTmp() throws Throwable {
+        this.testMimeTypeOfFileDefault(
+                "/Users/Maestro/Pictures/JPEG-Image.tmp",
+                "image/jpeg"
+        );
+    }
+
+    @Test
+    public void testDefaultPng() throws Throwable {
+        this.testMimeTypeOfFileDefault(
+                "/Users/Maestro/Documents/pillow-A-Vertical-Flipped.png",
+                "image/png"
+        );
+    }
+
+    @Test
+    public void testDefaultPngAsTmp() throws Throwable {
+        this.testMimeTypeOfFileDefault(
+                "/Users/Maestro/Documents/PNG-Image.tmp",
+                "image/png"
+        );
+    }
+
+    @Test
+    public void testDefaultTxt() throws Throwable {
+        this.testMimeTypeOfFileDefault(
+                "/Users/Maestro/Documents/LinkedIn-Greeting.txt",
+                "text/plain"
+        );
+    }
+
+    @Test
+    public void testDefaultTxtAsTmp() throws Throwable {
+        this.testMimeTypeOfFileDefault(
+                "/Users/Maestro/Documents/Text-Document.tmp",
+                "text/plain"
+        );
+    }
+
+    @Test
     public void testSimplePdf() throws Throwable {
-        this.testMimeTypeOfFile(
+        this.testMimeTypeOfFileSimple(
                 "/Users/Maestro/Documents/Improving_Code_Quality_.pdf",
                 "application/pdf"
         );
@@ -65,7 +184,7 @@ public class TestShaded {
 
     @Test
     public void testSimplePdfAsTmp() throws Throwable {
-        this.testMimeTypeOfFile(
+        this.testMimeTypeOfFileSimple(
                 "/Users/Maestro/Documents/PDF-Document.tmp",
                 "application/pdf"
         );
@@ -73,7 +192,7 @@ public class TestShaded {
 
     @Test
     public void testSimpleWord() throws Throwable {
-        this.testMimeTypeOfFile(
+        this.testMimeTypeOfFileSimple(
                 "/Users/Maestro/Documents/Watkins Academy of Music Piano Competition.docx",
                 "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
         );
@@ -81,7 +200,7 @@ public class TestShaded {
 
     @Test
     public void testSimpleWordAsTmp() throws Throwable {
-        this.testMimeTypeOfFile(
+        this.testMimeTypeOfFileSimple(
                 "/Users/Maestro/Documents/Word-Document.tmp",
                 "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
         );
@@ -89,7 +208,7 @@ public class TestShaded {
 
     @Test
     public void testSimpleExcel() throws Throwable {
-        this.testMimeTypeOfFile(
+        this.testMimeTypeOfFileSimple(
                 "/Users/Maestro/Documents/Fidelity-CDs.xlsx",
                 "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
         );
@@ -97,7 +216,7 @@ public class TestShaded {
 
     @Test
     public void testSimpleExcelAsTmp() throws Throwable {
-        this.testMimeTypeOfFile(
+        this.testMimeTypeOfFileSimple(
                 "/Users/Maestro/Documents/Excel-Document.tmp",
                 "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
         );
@@ -105,7 +224,7 @@ public class TestShaded {
 
     @Test
     public void testSimplePowerpoint() throws Throwable {
-        this.testMimeTypeOfFile(
+        this.testMimeTypeOfFileSimple(
                 "/Users/Maestro/Documents/Epic-Presentation.pptx",
                 "application/vnd.openxmlformats-officedocument.presentationml.presentation"
         );
@@ -113,7 +232,7 @@ public class TestShaded {
 
     @Test
     public void testSimplePowerpointAsTmp() throws Throwable {
-        this.testMimeTypeOfFile(
+        this.testMimeTypeOfFileSimple(
                 "/Users/Maestro/Documents/Powerpoint-Document.tmp",
                 "application/vnd.openxmlformats-officedocument.presentationml.presentation"
         );
@@ -121,7 +240,7 @@ public class TestShaded {
 
     @Test
     public void testSimpleJpeg() throws Throwable {
-        this.testMimeTypeOfFile(
+        this.testMimeTypeOfFileSimple(
                 "/Users/Maestro/Pictures/Ace-Sketch.jpg",
                 "image/jpeg"
         );
@@ -129,7 +248,7 @@ public class TestShaded {
 
     @Test
     public void testSimpleJpegAsTmp() throws Throwable {
-        this.testMimeTypeOfFile(
+        this.testMimeTypeOfFileSimple(
                 "/Users/Maestro/Pictures/JPEG-Image.tmp",
                 "image/jpeg"
         );
@@ -137,7 +256,7 @@ public class TestShaded {
 
     @Test
     public void testSimplePng() throws Throwable {
-        this.testMimeTypeOfFile(
+        this.testMimeTypeOfFileSimple(
                 "/Users/Maestro/Documents/pillow-A-Vertical-Flipped.png",
                 "image/png"
         );
@@ -145,7 +264,7 @@ public class TestShaded {
 
     @Test
     public void testSimplePngAsTmp() throws Throwable {
-        this.testMimeTypeOfFile(
+        this.testMimeTypeOfFileSimple(
                 "/Users/Maestro/Documents/PNG-Image.tmp",
                 "image/png"
         );
@@ -153,7 +272,7 @@ public class TestShaded {
 
     @Test
     public void testSimpleTxt() throws Throwable {
-        this.testMimeTypeOfFile(
+        this.testMimeTypeOfFileSimple(
                 "/Users/Maestro/Documents/LinkedIn-Greeting.txt",
                 "text/plain"
         );
@@ -161,7 +280,7 @@ public class TestShaded {
 
     @Test
     public void testSimpleTxtAsTmp() throws Throwable {
-        this.testMimeTypeOfFile(
+        this.testMimeTypeOfFileSimple(
                 "/Users/Maestro/Documents/Text-Document.tmp",
                 "text/plain"
         );
