@@ -105,7 +105,7 @@ final class Shaded {
         this.logger.exit();
     }
 
-    String defaultDetect(final File file) throws Exception {
+    private String defaultDetect(final File file) throws Exception {
         this.logger.entry(file);
 
         String mimeType = null;
@@ -199,7 +199,7 @@ final class Shaded {
         this.logger.exit();
     }
 
-    String simpleDetect(final File file) throws IOException {
+    private String simpleDetect(final File file) throws IOException {
         this.logger.entry(file);
 
         final var tika = new org.apache.tika.Tika();
@@ -210,7 +210,7 @@ final class Shaded {
         return mimeType;
     }
 
-    String getExtensionByMimeType(final String mimetypeString) {
+    private String getExtensionByMimeType(final String mimetypeString) {
         this.logger.entry(mimetypeString);
 
         String extension;

@@ -50,13 +50,17 @@ public class TestFileExtensions {
 
     @Test
     public void testUnshadedFileExtensions() throws Throwable {
-        final var resultPdf = this.unshaded.getExtensionByMimeType("application/pdf");
-        final var resultWord = this.unshaded.getExtensionByMimeType("application/vnd.openxmlformats-officedocument.wordprocessingml.document");
-        final var resultExcel = this.unshaded.getExtensionByMimeType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-        final var resultPowerpoint = this.unshaded.getExtensionByMimeType("application/vnd.openxmlformats-officedocument.presentationml.presentation");
-        final var resultJpeg = this.unshaded.getExtensionByMimeType("image/jpeg");
-        final var resultPng = this.unshaded.getExtensionByMimeType("image/png");
-        final var resultTxt = this.unshaded.getExtensionByMimeType("text/plain");
+        final var method = Unshaded.class.getDeclaredMethod("getExtensionByMimeType", String.class);
+
+        method.setAccessible(true);
+
+        final var resultPdf = method.invoke(this.unshaded, "application/pdf");
+        final var resultWord = method.invoke(this.unshaded, "application/vnd.openxmlformats-officedocument.wordprocessingml.document");
+        final var resultExcel = method.invoke(this.unshaded, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+        final var resultPowerpoint = method.invoke(this.unshaded, "application/vnd.openxmlformats-officedocument.presentationml.presentation");
+        final var resultJpeg = method.invoke(this.unshaded, "image/jpeg");
+        final var resultPng = method.invoke(this.unshaded, "image/png");
+        final var resultTxt = method.invoke(this.unshaded, "text/plain");
 
         assertEquals(".pdf", resultPdf);
         assertEquals(".docx", resultWord);
@@ -69,13 +73,17 @@ public class TestFileExtensions {
 
     @Test
     public void testShadedFileExtensions() throws Throwable {
-        final var resultPdf = this.shaded.getExtensionByMimeType("application/pdf");
-        final var resultWord = this.shaded.getExtensionByMimeType("application/vnd.openxmlformats-officedocument.wordprocessingml.document");
-        final var resultExcel = this.shaded.getExtensionByMimeType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-        final var resultPowerpoint = this.shaded.getExtensionByMimeType("application/vnd.openxmlformats-officedocument.presentationml.presentation");
-        final var resultJpeg = this.shaded.getExtensionByMimeType("image/jpeg");
-        final var resultPng = this.shaded.getExtensionByMimeType("image/png");
-        final var resultTxt = this.shaded.getExtensionByMimeType("text/plain");
+        final var method = Shaded.class.getDeclaredMethod("getExtensionByMimeType", String.class);
+
+        method.setAccessible(true);
+
+        final var resultPdf = method.invoke(this.shaded, "application/pdf");
+        final var resultWord = method.invoke(this.shaded, "application/vnd.openxmlformats-officedocument.wordprocessingml.document");
+        final var resultExcel = method.invoke(this.shaded, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+        final var resultPowerpoint = method.invoke(this.shaded, "application/vnd.openxmlformats-officedocument.presentationml.presentation");
+        final var resultJpeg = method.invoke(this.shaded, "image/jpeg");
+        final var resultPng = method.invoke(this.shaded, "image/png");
+        final var resultTxt = method.invoke(this.shaded, "text/plain");
 
         assertEquals(".pdf", resultPdf);
         assertEquals(".docx", resultWord);

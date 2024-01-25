@@ -32,32 +32,42 @@ package net.jmp.demo.apache.tika;
 
 import java.io.File;
 
+import java.lang.reflect.Method;
+
 import org.junit.*;
 
 import static org.junit.Assert.assertEquals;
 
 public class TestUnshaded {
     private Unshaded unshaded;
+    private Method defaultDetectMethod;
+    private Method simpleDetectMethod;
 
     public TestUnshaded() {
         super();
     }
 
     @Before
-    public void before() {
+    public void before() throws Throwable {
         this.unshaded = new Unshaded();
+
+        this.defaultDetectMethod = Unshaded.class.getDeclaredMethod("defaultDetect", File.class);
+        this.simpleDetectMethod = Unshaded.class.getDeclaredMethod("simpleDetect", File.class);
+
+        this.defaultDetectMethod.setAccessible(true);
+        this.simpleDetectMethod.setAccessible(true);
     }
 
     private void testMimeTypeOfFileDefault(final String fileName, final String expectedMimeType) throws Throwable {
         final var file = new File(fileName);
-        final var result = this.unshaded.defaultDetect(file);
+        final var result = this.defaultDetectMethod.invoke(this.unshaded, file);
 
         assertEquals(expectedMimeType, result);
     }
 
     private void testMimeTypeOfFileSimple(final String fileName, final String expectedMimeType) throws Throwable {
         final var file = new File(fileName);
-        final var result = this.unshaded.simpleDetect(file);
+        final var result = this.simpleDetectMethod.invoke(this.unshaded, file);
 
         assertEquals(expectedMimeType, result);
     }
