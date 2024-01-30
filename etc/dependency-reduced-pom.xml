@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>net.jmp.demo.apache.shaded.tika</groupId>
   <artifactId>shaded-tika</artifactId>
-  <version>2.9.1</version>
+  <version>2.9.1-SNAPSHOT</version>
   <build>
     <plugins>
       <plugin>
@@ -16,13 +16,24 @@
               <goal>shade</goal>
             </goals>
             <configuration>
+              <artifactSet>
+                <includes>
+                  <include>com.epam.parso:*</include>
+                  <include>org.apache.tika:*</include>
+                </includes>
+              </artifactSet>
               <transformers>
+                <transformer />
                 <transformer />
               </transformers>
               <relocations>
                 <relocation>
                   <pattern>org.apache.tika</pattern>
                   <shadedPattern>org.shaded.apache.tika</shadedPattern>
+                </relocation>
+                <relocation>
+                  <pattern>com.epam.parso</pattern>
+                  <shadedPattern>com.shaded.epam.parso</shadedPattern>
                 </relocation>
               </relocations>
             </configuration>
@@ -31,6 +42,7 @@
         <configuration>
           <artifactSet>
             <includes>
+              <include>com.epam.parso:*</include>
               <include>org.apache.tika:*</include>
             </includes>
           </artifactSet>
@@ -38,6 +50,14 @@
       </plugin>
     </plugins>
   </build>
+  <dependencies>
+    <dependency>
+      <groupId>com.epam</groupId>
+      <artifactId>parso</artifactId>
+      <version>2.0.14</version>
+      <scope>compile</scope>
+    </dependency>
+  </dependencies>
   <properties>
     <tika.version>2.9.1</tika.version>
   </properties>

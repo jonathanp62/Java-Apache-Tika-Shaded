@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!--
+ (#)pom.xml	0.7.0	01/30/2024
  (#)pom.xml	0.4.0	01/24/2024
  (#)pom.xml	0.3.0	01/23/2024
 
  @author   Jonathan Parker
- @version  0.4.0
+ @version  0.7.0
  @since    0.3.0
 
  MIT License
@@ -37,7 +38,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>net.jmp.demo.apache.shaded.tika</groupId>
     <artifactId>shaded-tika</artifactId>
-    <version>2.9.1</version>
+    <version>2.9.1-SNAPSHOT</version>
     <properties>
         <tika.version>2.9.1</tika.version>
     </properties>
@@ -60,11 +61,17 @@
                 <artifactId>maven-shade-plugin</artifactId>
                 <version>3.5.1</version>
                 <configuration>
-                    <artifactSet>
-                        <includes>
-                            <include>org.apache.tika:*</include>
-                        </includes>
-                    </artifactSet>
+                    <createDependencyReducedPom>false</createDependencyReducedPom>
+                    <filters>
+                        <filter>
+                            <artifact>*:*</artifact>
+                            <excludes>
+                                <exclude>META-INF/*.SF</exclude>
+                                <exclude>META-INF/*.DSA</exclude>
+                                <exclude>META-INF/*.RSA</exclude>
+                            </excludes>
+                        </filter>
+                    </filters>
                 </configuration>
                 <executions>
                     <execution>
@@ -75,11 +82,256 @@
                         <configuration>
                             <transformers>
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer"/>
                             </transformers>
                             <relocations>
                                 <relocation>
+                                    <pattern>assets.org.apache.commons.math3</pattern>
+                                    <shadedPattern>assets.shaded.org.apache.commons.math3</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>com.adobe.internal.xmp</pattern>
+                                    <shadedPattern>com.shaded.adobe.internal.xmp</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>com.dd.plist</pattern>
+                                    <shadedPattern>com.shaded.dd.plist</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>com.drew</pattern>
+                                    <shadedPattern>com.shaded.drew</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>com.epam.parso</pattern>
+                                    <shadedPattern>com.shaded.epam.parso</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>com.fasterxml.jackson</pattern>
+                                    <shadedPattern>com.shaded.fasterxml.jackson</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>com.github.jaiimageio</pattern>
+                                    <shadedPattern>com.shaded.github.jaiimageio</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>com.github.junrar</pattern>
+                                    <shadedPattern>com.shaded.github.junrar</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>com.graphbuilder</pattern>
+                                    <shadedPattern>com.shaded.graphbuilder</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>com.healthmarketscience.jackcess</pattern>
+                                    <shadedPattern>com.shaded.healthmarketscience.jackcess</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>com.jmatio</pattern>
+                                    <shadedPattern>com.shaded.jmatio</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>com.microsoft.schemas</pattern>
+                                    <shadedPattern>com.shaded.microsoft.schemas</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>com.pff</pattern>
+                                    <shadedPattern>com.shaded.pff</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>com.rometools.rome</pattern>
+                                    <shadedPattern>com.shaded.rometools.rome</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>com.rometools.utils</pattern>
+                                    <shadedPattern>com.shaded.rometools.utils</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>com.sun.activation</pattern>
+                                    <shadedPattern>com.shaded.sun.activation</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>com.sun.istack</pattern>
+                                    <shadedPattern>com.shaded.sun.istack</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>com.sun.xml</pattern>
+                                    <shadedPattern>com.shaded.sun.xml</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>com.uwyn.jhighlight.renderer</pattern>
+                                    <shadedPattern>com.shaded.uwyn.jhighlight.renderer</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>com.zaxxer.sparsebits</pattern>
+                                    <shadedPattern>com.shaded.zaxxer.sparsebits</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>example</pattern>
+                                    <shadedPattern>example.shaded.</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>javax.activation</pattern>
+                                    <shadedPattern>javax.shaded.activation</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>javax.xml</pattern>
+                                    <shadedPattern>javax.shaded.xml</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>org.apache.commons.codec</pattern>
+                                    <shadedPattern>org.shaded.apache.commons.codec</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>org.apache.commons.collections4</pattern>
+                                    <shadedPattern>org.shaded.apache.commons.collections4</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>org.apache.commons.compress</pattern>
+                                    <shadedPattern>org.shaded.apache.commons.compress</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>org.apache.commons.csv</pattern>
+                                    <shadedPattern>org.shaded.apache.commons.csv</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>org.apache.commons.exec</pattern>
+                                    <shadedPattern>org.shaded.apache.commons.exec</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>org.apache.commons.io</pattern>
+                                    <shadedPattern>org.shaded.apache.commons.io</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>org.apache.commons.lang3</pattern>
+                                    <shadedPattern>org.shaded.apache.commons.lang3</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>org.apache.commons.logging</pattern>
+                                    <shadedPattern>org.shaded.apache.commons.logging</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>org.apache.commons.math3</pattern>
+                                    <shadedPattern>org.shaded.apache.commons.math3</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>org.apache.fontbox</pattern>
+                                    <shadedPattern>org.shaded.apache.fontbox</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>org.apache.html.dom</pattern>
+                                    <shadedPattern>org.shaded.apache.html.dom</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>org.apache.james.mime4j</pattern>
+                                    <shadedPattern>org.shaded.apache.james.mime4j</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>org.apache.jempbox</pattern>
+                                    <shadedPattern>org.shaded.apache.jempbox</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>org.apache.logging.log4j</pattern>
+                                    <shadedPattern>org.shaded.apache.logging.log4j</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>org.apache.poi</pattern>
+                                    <shadedPattern>org.shaded.apache.poi</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>org.apache.pdfbox</pattern>
+                                    <shadedPattern>org.shaded.apache.pdfbox</shadedPattern>
+                                </relocation>
+                                <relocation>
                                     <pattern>org.apache.tika</pattern>
                                     <shadedPattern>org.shaded.apache.tika</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>org.apache.wml</pattern>
+                                    <shadedPattern>org.shaded.apache.wml</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>org.apache.xerces</pattern>
+                                    <shadedPattern>org.shaded.apache.xerces</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>org.apache.xml.serialize</pattern>
+                                    <shadedPattern>org.shaded.apache.xml.serialize</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>org.apache.xmlbeans</pattern>
+                                    <shadedPattern>org.shaded.apache.xmlbeans</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>org.apache.xmlcommons</pattern>
+                                    <shadedPattern>org.shaded.apache.xmlcommons</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>org.apache.xmpbox</pattern>
+                                    <shadedPattern>org.shaded.apache.xmpbox</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>org.bouncycastle</pattern>
+                                    <shadedPattern>org.shaded.bouncycastle</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>org.brotli.dec</pattern>
+                                    <shadedPattern>org.shaded.brotli.dec</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>org.ccil.cowan.tagsoup</pattern>
+                                    <shadedPattern>org.shaded.ccil.cowan.tagsoup</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>org.codelibs.jhighlight</pattern>
+                                    <shadedPattern>org.shaded.codelibs.jhighlight</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>org.etsi.uri.x01903</pattern>
+                                    <shadedPattern>org.shaded.etsi.uri.x01903</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>org.gagravarr</pattern>
+                                    <shadedPattern>org.shaded.gagravarr</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>org.jdom2</pattern>
+                                    <shadedPattern>org.shaded.jdom2</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>org.mozilla.universalchardet</pattern>
+                                    <shadedPattern>org.shaded.mozilla.universalchardet</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>org.netpreserve.jwarc</pattern>
+                                    <shadedPattern>org.shaded.netpreserve.jwarc</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>org.objectweb.asm</pattern>
+                                    <shadedPattern>org.shaded.objectweb.asm</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>org.openxmlformats.schemas</pattern>
+                                    <shadedPattern>org.shaded.openxmlformats.schemas</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>org.slf4j</pattern>
+                                    <shadedPattern>org.shaded.slf4j</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>org.tukaani.xz</pattern>
+                                    <shadedPattern>org.shaded.tukaani.xz</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>org.w3.x2000.x09.xmldsig</pattern>
+                                    <shadedPattern>org.shaded.w3.x2000.x09.xmldsig</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>org.w3c</pattern>
+                                    <shadedPattern>org.shaded.w3c</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>org.xml.sax</pattern>
+                                    <shadedPattern>org.shaded.xml.sax</shadedPattern>
                                 </relocation>
                             </relocations>
                         </configuration>
