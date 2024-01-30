@@ -110,8 +110,8 @@ final class Shaded {
 
         String mimeType = null;
 
-        final var tika = new org.apache.tika.config.TikaConfig();
-        final var metadata = new org.apache.tika.metadata.Metadata();
+        final var tika = new TikaConfig();
+        final var metadata = new Metadata();
 
         final var mediaType = tika
                 .getDetector()
@@ -202,7 +202,7 @@ final class Shaded {
     private String simpleDetect(final File file) throws IOException {
         this.logger.entry(file);
 
-        final var tika = new org.apache.tika.Tika();
+        final var tika = new Tika();
         final var mimeType = tika.detect(file);
 
         this.logger.exit(mimeType);

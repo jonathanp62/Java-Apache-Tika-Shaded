@@ -1,10 +1,11 @@
 package net.jmp.demo.apache.tika;
 
 /*
+ * (#)TestFileExtensions.java   0.8.0   01/30/2024
  * (#)TestFileExtensions.java   0.5.0   01/25/2024
  *
  * @author    Jonathan Parker
- * @version   0.5.0
+ * @version   0.8.0
  * @since     0.5.0
  *
  * MIT License
@@ -35,7 +36,6 @@ import org.junit.*;
 import static org.junit.Assert.assertEquals;
 
 public class TestFileExtensions {
-    private Unshaded unshaded;
     private Shaded shaded;
 
     public TestFileExtensions() {
@@ -44,31 +44,7 @@ public class TestFileExtensions {
 
     @Before
     public void before () {
-        this.unshaded = new Unshaded();
         this.shaded = new Shaded();
-    }
-
-    @Test
-    public void testUnshadedFileExtensions() throws Throwable {
-        final var method = Unshaded.class.getDeclaredMethod("getExtensionByMimeType", String.class);
-
-        method.setAccessible(true);
-
-        final var resultPdf = method.invoke(this.unshaded, "application/pdf");
-        final var resultWord = method.invoke(this.unshaded, "application/vnd.openxmlformats-officedocument.wordprocessingml.document");
-        final var resultExcel = method.invoke(this.unshaded, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-        final var resultPowerpoint = method.invoke(this.unshaded, "application/vnd.openxmlformats-officedocument.presentationml.presentation");
-        final var resultJpeg = method.invoke(this.unshaded, "image/jpeg");
-        final var resultPng = method.invoke(this.unshaded, "image/png");
-        final var resultTxt = method.invoke(this.unshaded, "text/plain");
-
-        assertEquals(".pdf", resultPdf);
-        assertEquals(".docx", resultWord);
-        assertEquals(".xlsx", resultExcel);
-        assertEquals(".pptx", resultPowerpoint);
-        assertEquals(".jpg", resultJpeg);
-        assertEquals(".png", resultPng);
-        assertEquals(".txt", resultTxt);
     }
 
     @Test

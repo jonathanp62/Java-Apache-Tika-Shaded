@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!--
+ (#)pom.xml	0.8.0	01/30/2024
  (#)pom.xml	0.7.0	01/30/2024
  (#)pom.xml	0.6.0	01/25/2024
  (#)pom.xml	0.5.0	01/25/2024
@@ -10,7 +11,7 @@
  (#)pom.xml	0.1.0	01/22/2024
 
  @author   Jonathan Parker
- @version  0.6.0
+ @version  0.8.0
  @since    0.1.0
 
  MIT License
@@ -43,7 +44,7 @@
   <groupId>net.jmp.demo.apache.tika.demo</groupId>
   <artifactId>apache-tika-demo</artifactId>
   <packaging>jar</packaging>
-  <version>0.6.0</version>
+  <version>0.8.0</version>
   <name>Apache TIKA Demonstration</name>
   <description>
     A demonstration program of Apache TIKA
@@ -60,7 +61,6 @@
     <repository.manager>http://localhost:8081/nexus</repository.manager>
     <scm.url.base>svn://jonathan@localhost/IDEA</scm.url.base>
     <slf4j.version>2.0.11</slf4j.version>
-    <tika.version>2.9.1</tika.version>
   </properties>
   <scm>
     <connection>scm:svn:${scm.url.base}/Apache-TIKA-Demo</connection>
@@ -361,16 +361,6 @@
       <groupId>net.jmp.demo.apache.shaded.tika</groupId>
       <artifactId>shaded-tika</artifactId>
       <version>2.9.1-SNAPSHOT</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.tika</groupId>
-      <artifactId>tika-core</artifactId>
-      <version>${tika.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.tika</groupId>
-      <artifactId>tika-parsers-standard-package</artifactId>
-      <version>${tika.version}</version>
     </dependency>
     <dependency>
       <groupId>org.slf4j</groupId>

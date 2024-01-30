@@ -1,12 +1,13 @@
 package net.jmp.demo.apache.tika;
 
 /*
+ * (#)Main.java 0.8.0   01/30/2024
  * (#)Main.java 0.3.0   01/23/2024
  * (#)Main.java 0.2.0   01/22/2024
  * (#)Main.java 0.1.0   01/22/2024
  *
  * @author    Jonathan Parker
- * @version   0.3.0
+ * @version   0.8.0
  * @since     0.1.0
  *
  * MIT License
@@ -68,7 +69,6 @@ public final class Main {
             for (final var fileName : fileNames.get().getList())
                 files.add(new File(fileName));
 
-            new Unshaded().run(files);
             new Shaded().run(files);
         }
 
