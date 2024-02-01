@@ -12,3 +12,4 @@ I also learned that the XPathFactory has to be specified as a property; in this 
 
 The typical property is -Djavax.xml.xpath.XPathFactory but in this case this class has been relocated to javax.shaded.xml.xpath.XPathFactory.
 
+As an alternative to setting properties on the command line using System.setProperty() in early code does work.

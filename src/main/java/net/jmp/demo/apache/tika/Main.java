@@ -56,6 +56,9 @@ public final class Main {
 
     private Main() {
         super();
+
+        System.setProperty("javax.shaded.xml.xpath.XPathFactory:http://java.sun.com/jaxp/xpath/dom", "net.shaded.sf.saxon.xpath.XPathFactoryImpl");
+        System.setProperty("jaxp.debug", "false");
     }
 
     private void run() {
