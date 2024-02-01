@@ -1,12 +1,13 @@
 package net.jmp.demo.apache.tika;
 
 /*
+ * (#)Shaded.java   0.8.0   01/31/2024
  * (#)Shaded.java   0.5.0   01/25/2024
  * (#)Shaded.java   0.4.0   01/23/2024
  * (#)Shaded.java   0.3.0   01/23/2024
  *
  * @author    Jonathan Parker
- * @version   0.5.0
+ * @version   0.8.0
  * @since     0.3.0
  *
  * MIT License
@@ -80,6 +81,7 @@ final class Shaded {
         }
 
         this.simple(files);
+        this.parseToString(files);
 
         this.logger.exit();
     }
@@ -230,6 +232,34 @@ final class Shaded {
             extension = "";
         }
 
+        this.logger.exit(extension);
+
         return extension;
+    }
+
+    private void parseToString(final List<File> files) {
+        this.logger.entry(files);
+
+        // In Acadia only text files and PDF files are parsed to string
+
+        try {
+            for (final var file : files) {
+                if ("LinkedIn-Greeting.txt".equals(file.getName())
+                        || "Text-Document.tmp".equals(file.getName())
+                        || "Improving_Code_Quality_.pdf".equals(file.getName())) {
+                    final var tika = new Tika();
+                    final var string = tika.parseToString(file);
+
+                    if (this.logger.isInfoEnabled()) {
+                        this.logger.info("File {}", file.getName());
+                        this.logger.info("String: {}", string);
+                    }
+                }
+            }
+        } catch (final Exception e) {
+            this.logger.catching(e);
+        }
+
+        this.logger.exit();
     }
 }

@@ -60,6 +60,7 @@ public class TestFileExtensions {
         final var resultJpeg = method.invoke(this.shaded, "image/jpeg");
         final var resultPng = method.invoke(this.shaded, "image/png");
         final var resultTxt = method.invoke(this.shaded, "text/plain");
+        final var resultZip = method.invoke(this.shaded, "application/zip");
 
         assertEquals(".pdf", resultPdf);
         assertEquals(".docx", resultWord);
@@ -68,5 +69,6 @@ public class TestFileExtensions {
         assertEquals(".jpg", resultJpeg);
         assertEquals(".png", resultPng);
         assertEquals(".txt", resultTxt);
+        assertEquals(".zip", resultZip);
     }
 }

@@ -374,3 +374,4 @@
     </dependency>
   </dependencies>
 </project>
+<!-- -Djavax.shaded.xml.xpath.XPathFactory:http://java.sun.com/jaxp/xpath/dom=org.apache.xpath.jaxp.XPathFactoryImpl -->

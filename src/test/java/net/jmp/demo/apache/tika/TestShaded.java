@@ -1,10 +1,11 @@
 package net.jmp.demo.apache.tika;
 
 /*
+ * (#)TestShaded.java   0.8.0   01/31/2024
  * (#)TestShaded.java   0.5.0   01/25/2024
  *
  * @author    Jonathan Parker
- * @version   0.5.0
+ * @version   0.8.0
  * @since     0.5.0
  *
  * MIT License
@@ -185,6 +186,22 @@ public class TestShaded {
     }
 
     @Test
+    public void testDefaultZip() throws Throwable {
+        this.testMimeTypeOfFileDefault(
+                "/Users/Maestro/Downloads/protoeditor-223.8214.6.zip",
+                "application/zip"
+        );
+    }
+
+    @Test
+    public void testDefaultZipAsTmp() throws Throwable {
+        this.testMimeTypeOfFileDefault(
+                "/Users/Maestro/Downloads/Zip-Document.tmp",
+                "application/zip"
+        );
+    }
+
+    @Test
     public void testSimplePdf() throws Throwable {
         this.testMimeTypeOfFileSimple(
                 "/Users/Maestro/Documents/Improving_Code_Quality_.pdf",
@@ -293,6 +310,22 @@ public class TestShaded {
         this.testMimeTypeOfFileSimple(
                 "/Users/Maestro/Documents/Text-Document.tmp",
                 "text/plain"
+        );
+    }
+
+    @Test
+    public void testSimpleZip() throws Throwable {
+        this.testMimeTypeOfFileSimple(
+                "/Users/Maestro/Downloads/protoeditor-223.8214.6.zip",
+                "application/zip"
+        );
+    }
+
+    @Test
+    public void testSimpleZipAsTmp() throws Throwable {
+        this.testMimeTypeOfFileSimple(
+                "/Users/Maestro/Downloads/Zip-Document.tmp",
+                "application/zip"
         );
     }
 }
