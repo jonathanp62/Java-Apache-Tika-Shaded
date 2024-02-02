@@ -1,13 +1,14 @@
 package net.jmp.demo.apache.tika;
 
 /*
+ * (#)Main.java 0.9.0   02/02/2024
  * (#)Main.java 0.8.0   01/30/2024
  * (#)Main.java 0.3.0   01/23/2024
  * (#)Main.java 0.2.0   01/22/2024
  * (#)Main.java 0.1.0   01/22/2024
  *
  * @author    Jonathan Parker
- * @version   0.8.0
+ * @version   0.9.0
  * @since     0.1.0
  *
  * MIT License
@@ -57,7 +58,6 @@ public final class Main {
     private Main() {
         super();
 
-        System.setProperty("javax.shaded.xml.xpath.XPathFactory:http://java.sun.com/jaxp/xpath/dom", "net.shaded.sf.saxon.xpath.XPathFactoryImpl");
         System.setProperty("jaxp.debug", "false");
     }
 
