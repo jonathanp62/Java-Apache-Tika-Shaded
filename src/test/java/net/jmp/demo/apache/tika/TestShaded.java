@@ -1,11 +1,12 @@
 package net.jmp.demo.apache.tika;
 
 /*
+ * (#)TestShaded.java   0.10.0  02/06/2024
  * (#)TestShaded.java   0.8.0   01/31/2024
  * (#)TestShaded.java   0.5.0   01/25/2024
  *
  * @author    Jonathan Parker
- * @version   0.8.0
+ * @version   0.10.0
  * @since     0.5.0
  *
  * MIT License
@@ -202,6 +203,22 @@ public class TestShaded {
     }
 
     @Test
+    public void testDefaultRar() throws Throwable {
+        this.testMimeTypeOfFileDefault(
+                "/Users/Maestro/Downloads/sample-1.rar",
+                "application/x-rar-compressed; version=4"
+        );
+    }
+
+    @Test
+    public void testDefaultRarAsTmp() throws Throwable {
+        this.testMimeTypeOfFileDefault(
+                "/Users/Maestro/Downloads/RAR-Document.tmp",
+                "application/x-rar-compressed; version=4"
+        );
+    }
+
+    @Test
     public void testSimplePdf() throws Throwable {
         this.testMimeTypeOfFileSimple(
                 "/Users/Maestro/Documents/Improving_Code_Quality_.pdf",
@@ -326,6 +343,22 @@ public class TestShaded {
         this.testMimeTypeOfFileSimple(
                 "/Users/Maestro/Downloads/Zip-Document.tmp",
                 "application/zip"
+        );
+    }
+
+    @Test
+    public void testSimpleRar() throws Throwable {
+        this.testMimeTypeOfFileSimple(
+                "/Users/Maestro/Downloads/sample-1.rar",
+                "application/x-rar-compressed; version=4"
+        );
+    }
+
+    @Test
+    public void testSimpleRarAsTmp() throws Throwable {
+        this.testMimeTypeOfFileSimple(
+                "/Users/Maestro/Downloads/RAR-Document.tmp",
+                "application/x-rar-compressed; version=4"
         );
     }
 }

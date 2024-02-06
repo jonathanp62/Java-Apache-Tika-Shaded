@@ -1,11 +1,12 @@
 package net.jmp.demo.apache.tika;
 
 /*
+ * (#)TestFileExtensions.java   0.10.0  02/06/2024
  * (#)TestFileExtensions.java   0.8.0   01/30/2024
  * (#)TestFileExtensions.java   0.5.0   01/25/2024
  *
  * @author    Jonathan Parker
- * @version   0.8.0
+ * @version   0.10.0
  * @since     0.5.0
  *
  * MIT License
@@ -61,6 +62,8 @@ public class TestFileExtensions {
         final var resultPng = method.invoke(this.shaded, "image/png");
         final var resultTxt = method.invoke(this.shaded, "text/plain");
         final var resultZip = method.invoke(this.shaded, "application/zip");
+        final var resultRar1 = method.invoke(this.shaded, "application/x-rar-compressed; version=4");
+        final var resultRar2 = method.invoke(this.shaded, "application/x-rar-compressed; version=5");
 
         assertEquals(".pdf", resultPdf);
         assertEquals(".docx", resultWord);
@@ -70,5 +73,7 @@ public class TestFileExtensions {
         assertEquals(".png", resultPng);
         assertEquals(".txt", resultTxt);
         assertEquals(".zip", resultZip);
+        assertEquals(".rar", resultRar1);
+        assertEquals(".rar", resultRar2);
     }
 }

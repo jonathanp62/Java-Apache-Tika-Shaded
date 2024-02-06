@@ -1,13 +1,14 @@
 package net.jmp.demo.apache.tika;
 
 /*
+ * (#)Shaded.java   0.10.0  02/06/2024
  * (#)Shaded.java   0.8.0   01/31/2024
  * (#)Shaded.java   0.5.0   01/25/2024
  * (#)Shaded.java   0.4.0   01/23/2024
  * (#)Shaded.java   0.3.0   01/23/2024
  *
  * @author    Jonathan Parker
- * @version   0.8.0
+ * @version   0.10.0
  * @since     0.3.0
  *
  * MIT License
@@ -49,6 +50,7 @@ import org.shaded.apache.tika.io.TikaInputStream;
 
 import org.shaded.apache.tika.metadata.Metadata;
 
+import org.shaded.apache.tika.mime.MimeType;
 import org.shaded.apache.tika.mime.MimeTypeException;
 import org.shaded.apache.tika.mime.MimeTypes;
 
@@ -220,6 +222,12 @@ final class Shaded {
         final var allTypes = MimeTypes.getDefaultMimeTypes();
 
         try {
+            final MimeType newMimeType1 = allTypes.forName("application/x-rar-compressed; version=4");
+            final MimeType newMimeType2 = allTypes.forName("application/x-rar-compressed; version=5");
+
+            allTypes.addPattern(newMimeType1, "*.rar");
+            allTypes.addPattern(newMimeType2, "*.rar");
+
             final var mimeType = allTypes.forName(mimetypeString);
 
             if (mimeType != null)
