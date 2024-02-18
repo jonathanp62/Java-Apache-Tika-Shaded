@@ -1,0 +1,18 @@
+/// The file name list module
+
+module FileNameList
+
+fileNames {
+	"file-name-1.txt"
+	"file-name-2.txt"
+	"file-name-3.txt"
+	"file-name-4.txt"
+}
+
+output {
+  renderer = new JsonRenderer {}
+}
+
+/*
+ * jpkl eval -f json -o file-names.json file-name-list.pkl
+ */
